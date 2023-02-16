@@ -2,7 +2,7 @@
 
 
 hub="registry.cn-hangzhou.aliyuncs.com"
-repo="$hub/kainstall"
+repo="$hub/gcrio"
 
 
 if [ -f sync.yaml ]; then
