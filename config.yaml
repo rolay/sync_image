@@ -56,3 +56,5 @@ images:
     - calico/pod2daemon-flexvol
     - calico/kube-controllers
     - calico/node
+  ghcr.io:
+    - kube-vip/kube-vip
