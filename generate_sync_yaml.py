@@ -148,32 +148,30 @@ def get_repo_ghcr_tags(image, limit=5):
     manifest_data = []
 
     try:
-        token_rep = requests.get(url=token_url, headers=hearders)
-        token_rep_json = token_rep.json()
-        token_data = token_rep_json['token']
-        
-        extra_headers = {"Authorization": f"Bearer {token_data}"}
-        
-        tag_rep = requests.get(url=tag_url, headers=extra_headers)
+        token_res = requests.get(url=token_url, headers=hearders)
+        token_data = token_res.json()
+        access_token = token_data['token']
+    except Exception as e:
+        print('[Get repo token]', e)
+        return tags
+
+    hearders['Authorization'] = 'Bearer ' + access_token
+    
+    try:
+        tag_rep = requests.get(url=tag_url, headers=hearders)
         tag_req_json = tag_rep.json()
         manifest_data = tag_req_json['tags']
     except Exception as e:
         print('[Get tag Error]', e)
         return tags
 
-    for manifest in manifest_data:
-        name = manifest.get('name', '')
-
+    for tag in manifest_data:
         # 排除 tag
-        if is_exclude_tag(name):
+        if is_exclude_tag(tag):
             continue
+        tags_data.append(tag)
 
-        tags_data.append({
-            'tag': name,
-            'start_ts': manifest.get('start_ts')
-        })
-
-    tags_sort_data = sorted(tags_data, key=lambda i: i['start_ts'], reverse=True)
+    tags_sort_data = sorted(tags_data, key=LooseVersion, reverse=True)
 
     # limit tag
     tags_limit_data = tags_sort_data[:limit]
@@ -181,10 +179,10 @@ def get_repo_ghcr_tags(image, limit=5):
     image_aliyun_tags = get_repo_aliyun_tags(image)
     for t in tags_limit_data:
         # 去除同步过的
-        if t['tag'] in image_aliyun_tags:
+        if t in image_aliyun_tags:
             continue
 
-        tags.append(t['tag'])
+        tags.append(t)
 
     print('[repo tag]', tags)
     return tags
