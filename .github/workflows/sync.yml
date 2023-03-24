@@ -35,7 +35,7 @@ jobs:
         sudo apt-get update
         #sudo apt-get -y upgrade
         #sudo apt-get -y install skopeo
-        dpkg -i skopeo_1.10.0-1_amd64.deb
+        sudo dpkg -i skopeo_1.10.0-1_amd64.deb
         skopeo --version
     - name: generate_sync_yaml
       timeout-minutes: 30
