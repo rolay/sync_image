@@ -51,6 +51,7 @@ images:
     - ingress-nginx/kube-webhook-certgen
   gcr.io:
     - kaniko-project/executor
+    - bitnami-labs/charts-syncer
   docker.io:
     - calico/cni
     - calico/pod2daemon-flexvol
