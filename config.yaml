@@ -38,6 +38,17 @@ images:
     - sig-storage/csi-snapshotter
     - sig-storage/csi-attacher
   registry.k8s.io:
+    - dns/k8s-dns-node-cache
+    - metrics-server/metrics-server
+    - kube-state-metrics/kube-state-metrics
+    - prometheus-adapter/prometheus-adapter
+    - sig-storage/nfs-subdir-external-provisioner
+    - sig-storage/nfs-provisioner
+    - sig-storage/csi-node-driver-registrar
+    - sig-storage/csi-provisioner
+    - sig-storage/csi-resizer
+    - sig-storage/csi-snapshotter
+    - sig-storage/csi-attacher
     - pause
     - etcd
     - conformance
